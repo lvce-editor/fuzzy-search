@@ -1,3 +1,3 @@
-export const isLowerCase = (char: string) => {
+export const isLowerCase = (char: string): boolean => {
   return char === char.toLowerCase()
 }

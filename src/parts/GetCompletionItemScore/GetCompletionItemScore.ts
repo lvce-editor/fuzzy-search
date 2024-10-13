@@ -2,16 +2,12 @@
 import * as IsGap from '../IsGap/IsGap.ts'
 
 export const getScore = (
-  rowCharLow: any,
-  rowChar: any,
-  columnCharBefore: any,
-  columnCharLow: any,
-  columnChar: any,
-  // @ts-ignore
-  column: any,
-  // @ts-ignore
-  wordLength: any,
-  isDiagonalMatch: any,
+  rowCharLow: string,
+  rowChar: string,
+  columnCharBefore: string,
+  columnCharLow: string,
+  columnChar: string,
+  isDiagonalMatch: boolean,
 ) => {
   if (rowCharLow !== columnCharLow) {
     return -1
