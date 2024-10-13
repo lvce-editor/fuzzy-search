@@ -11,7 +11,7 @@ const gridSize = 128
 const table = CreateTable.createTable(gridSize)
 const arrows = CreateTable.createTable(gridSize)
 
-export const filterCompletionItem = (pattern: any, word: any) => {
+export const fuzzySearch = (pattern: any, word: any) => {
   const patternLength = Math.min(pattern.length, gridSize - 1)
   const wordLength = Math.min(word.length, gridSize - 1)
   const patternLower = pattern.toLowerCase()
