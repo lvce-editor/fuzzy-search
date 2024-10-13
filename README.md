@@ -1,6 +1,6 @@
 # @lvce-editor/fuzzy-search
 
-Fuzzy search implementation.
+Fuzzy search implementation based on VSCode's implementation of the Needleman–Wunsch algorithm.
 
 ## Install
 
