@@ -46,8 +46,6 @@ export const fuzzySearch = (
         columnCharBefore,
         columnCharLow,
         columnChar,
-        column,
-        wordLength,
         isDiagonalMatch,
       )
       if (row === 1 && score > 5) {

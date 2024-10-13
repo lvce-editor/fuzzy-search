@@ -7,10 +7,6 @@ export const getScore = (
   columnCharBefore: string,
   columnCharLow: string,
   columnChar: string,
-  // @ts-ignore
-  column: number,
-  // @ts-ignore
-  wordLength: number,
   isDiagonalMatch: boolean,
 ) => {
   if (rowCharLow !== columnCharLow) {
