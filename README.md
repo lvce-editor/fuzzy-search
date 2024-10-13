@@ -13,7 +13,10 @@ npm install @lvce-editor/fuzzy-search
 ```js
 import * as FuzzySearch from '@lvce-editor/fuzzy-search'
 
-// TODO
+const pattern = 'fd'
+const word = 'font-display'
+
+const result = FuzzySearch.fuzzySearch(pattern, word) // [0, 1, 5, 6] highlight chars 0-1 (f) and 5-6 (d)
 ```
 
 ## Gitpod
