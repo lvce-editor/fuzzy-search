@@ -1,1 +1,1 @@
-export * from '../FuzzySearch/FuzzySearch.ts'
+export * from '../FilterCompletionItem/FilterCompletionItem.ts'
