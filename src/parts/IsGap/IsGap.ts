@@ -3,7 +3,10 @@ import * as Character from '../Character/Character.ts'
 import * as IsLowerCase from '../IsLowerCase/IsLowerCase.ts'
 import * as IsUpperCase from '../IsUpperCase/IsUpperCase.ts'
 
-export const isGap = (columnCharBefore: any, columnChar: any) => {
+export const isGap = (
+  columnCharBefore: string,
+  columnChar: string,
+): boolean => {
   switch (columnCharBefore) {
     case Character.Dash:
     case Character.Underline:
@@ -15,7 +18,10 @@ export const isGap = (columnCharBefore: any, columnChar: any) => {
     default:
       break
   }
-  if (IsLowerCase.isLowerCase(columnCharBefore) && IsUpperCase.isUpperCase(columnChar)) {
+  if (
+    IsLowerCase.isLowerCase(columnCharBefore) &&
+    IsUpperCase.isUpperCase(columnChar)
+  ) {
     return true
   }
   return false
