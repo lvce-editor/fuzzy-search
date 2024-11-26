@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals'
-import { isLowerCase } from '../src/parts/IsLowerCase/IsLowerCase'
+import { isLowerCase } from '../src/parts/IsLowerCase/IsLowerCase.ts'
 
 test('IsLowerCase returns true for lowercase strings', () => {
   expect(isLowerCase('hello')).toBe(true)

@@ -1,5 +1,5 @@
 import { test, expect } from '@jest/globals'
-import { isPatternInWord } from '../src/parts/IsPatternInWord/IsPatternInWord'
+import { isPatternInWord } from '../src/parts/IsPatternInWord/IsPatternInWord.ts'
 
 test('pattern is in word when pattern is empty', () => {
   expect(isPatternInWord('', 0, 0, 'hello', 0, 5)).toBe(true)
