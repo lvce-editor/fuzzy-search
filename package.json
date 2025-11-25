@@ -9,7 +9,8 @@
     "test": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --detectOpenHandles --forceExit",
     "test:watch": "node --unhandled-rejections=warn --experimental-vm-modules ./node_modules/jest/bin/jest.js --watch",
     "build": "node scripts/build.js",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "lint": "eslint . && prettier --check ."
   },
   "keywords": [
     "fuzzy-search"
@@ -18,8 +19,10 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/preset-typescript": "^7.28.5",
+    "@lvce-editor/eslint-config": "^2.25.0",
     "@rollup/plugin-babel": "^6.1.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
+    "eslint": "^9.39.1",
     "execa": "^9.6.0",
     "jest": "^30.2.0",
     "prettier": "^3.6.2",
