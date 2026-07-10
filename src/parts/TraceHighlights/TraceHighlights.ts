@@ -7,6 +7,19 @@ export const traceHighlights = (
   patternLength: number,
   wordLength: number,
 ): readonly number[] => {
+  const skipLeft = (
+    rowStart: number,
+    columnStart: number,
+  ): readonly [number, number] => {
+    let row = rowStart
+    let column = columnStart
+    while (row >= 1 && column >= 1 && arrows[row][column] === Arrow.Diagonal) {
+      row--
+      column--
+    }
+    return [row, column]
+  }
+
   let row = patternLength
   let column = wordLength
   const matches = []
@@ -14,23 +27,14 @@ export const traceHighlights = (
     const arrow = arrows[row][column]
     if (arrow === Arrow.Left) {
       column--
-    } else if (arrow === Arrow.Diagonal) {
-      row--
-      column--
-      const start = column + 1
-      while (row >= 1 && column >= 1) {
-        const arrow = arrows[row][column]
-        if (arrow === Arrow.Left) {
-          break
-        }
-        if (arrow === Arrow.Diagonal) {
-          row--
-          column--
-        }
-      }
-      const end = column
-      matches.unshift(end, start)
+      continue
     }
+    if (arrow !== Arrow.Diagonal) {
+      break
+    }
+    const start = column
+    ;[row, column] = skipLeft(row - 1, column - 1)
+    matches.unshift(column, start)
   }
   matches.unshift(table[patternLength][wordLength - 1])
   return matches

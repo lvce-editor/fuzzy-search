@@ -9,20 +9,17 @@ export const isGap = (
 ): boolean => {
   switch (columnCharBefore) {
     case Character.Dash:
-    case Character.Underline:
-    case Character.EmptyString:
-    case Character.T:
-    case Character.Space:
     case Character.Dot:
+    case Character.EmptyString:
+    case Character.Space:
+    case Character.T:
+    case Character.Underline:
       return true
     default:
       break
   }
-  if (
+  return (
     IsLowerCase.isLowerCase(columnCharBefore) &&
     IsUpperCase.isUpperCase(columnChar)
-  ) {
-    return true
-  }
-  return false
+  )
 }
