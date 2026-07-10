@@ -8,8 +8,8 @@ import * as TraceHighlights from '../TraceHighlights/TraceHighlights.ts'
 
 const gridSize = 128
 
-const table = CreateTable.createTable(gridSize)
-const arrows = CreateTable.createTable(gridSize)
+const table: Uint8Array[] = CreateTable.createTable(gridSize)
+const arrows: Uint8Array[] = CreateTable.createTable(gridSize)
 
 const fillRow = (
   row: number,
