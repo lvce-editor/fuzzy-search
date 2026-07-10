@@ -1,3 +1,4 @@
+/* cspell:ignore jeancroy fdis fodi filex xfiller acon elwor tololo cacmel cmcm Textedit */
 // based on tests from https://github.com/jeancroy/fuzz-aldrin-plus/blob/84eac1d73bacbbd11978e6960f4aa89f8396c540/spec/match-spec.coffee by jeancroy (License MIT)
 
 import { expect, test } from '@jest/globals'
@@ -323,6 +324,7 @@ test('vscode - fuzzyScore - LLL - SVisualLoggerLogsList', () => {
   ).toEqual([expect.any(Number), 7, 8, 13, 14, 17, 18])
 })
 
+// eslint-disable-next-line jest/no-disabled-tests -- behavior mismatch currently under investigation
 test.skip('vscode - fuzzyScore - LLLL - SVilLoLosLi', () => {
   expect(FilterCompletionItem.fuzzySearch('LLLL', 'SVilLoLosLi')).toEqual([])
 })

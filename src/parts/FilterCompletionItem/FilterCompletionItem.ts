@@ -8,8 +8,76 @@ import * as TraceHighlights from '../TraceHighlights/TraceHighlights.ts'
 
 const gridSize = 128
 
-const table = CreateTable.createTable(gridSize)
-const arrows = CreateTable.createTable(gridSize)
+const table: Uint8Array[] = CreateTable.createTable(gridSize)
+const arrows: Uint8Array[] = CreateTable.createTable(gridSize)
+
+const fillRow = (
+  row: number,
+  pattern: string,
+  patternLower: string,
+  word: string,
+  wordLower: string,
+  table: Uint8Array[],
+  arrows: Uint8Array[],
+  wordLength: number,
+): boolean => {
+  const rowChar = pattern[row - 1]
+  const rowCharLow = patternLower[row - 1]
+  let strongMatch = false
+  for (let column = 1; column < wordLength + 1; column++) {
+    const columnChar = word[column - 1]
+    const columnCharLow = wordLower[column - 1]
+    const columnCharBefore = word[column - 2] || ''
+    const isDiagonalMatch = arrows[row - 1][column - 1] === Arrow.Diagonal
+    const score = GetCompletionItemScore.getScore(
+      rowCharLow,
+      rowChar,
+      columnCharBefore,
+      columnCharLow,
+      columnChar,
+      isDiagonalMatch,
+    )
+    strongMatch ||= score > 5
+    let diagonalScore = score + table[row - 1][column - 1]
+    if (isDiagonalMatch && score !== -1) {
+      diagonalScore += 2
+    }
+    const leftScore = table[row][column - 1]
+    const useLeft = leftScore > diagonalScore
+    table[row][column] = useLeft ? leftScore : diagonalScore
+    arrows[row][column] = useLeft ? Arrow.Left : Arrow.Diagonal
+  }
+  return strongMatch
+}
+
+const fillTable = (
+  pattern: string,
+  patternLower: string,
+  word: string,
+  wordLower: string,
+  table: Uint8Array[],
+  arrows: Uint8Array[],
+  patternLength: number,
+  wordLength: number,
+): boolean => {
+  let strongMatch = false
+  for (let row = 1; row < patternLength + 1; row++) {
+    const isMatch = fillRow(
+      row,
+      pattern,
+      patternLower,
+      word,
+      wordLower,
+      table,
+      arrows,
+      wordLength,
+    )
+    if (row === 1) {
+      strongMatch ||= isMatch
+    }
+  }
+  return strongMatch
+}
 
 export const fuzzySearch = (
   pattern: string,
@@ -31,43 +99,16 @@ export const fuzzySearch = (
   ) {
     return EmptyMatches.EmptyMatches
   }
-  let strongMatch = false
-  for (let row = 1; row < patternLength + 1; row++) {
-    const rowChar = pattern[row - 1]
-    const rowCharLow = patternLower[row - 1]
-    for (let column = 1; column < wordLength + 1; column++) {
-      const columnChar = word[column - 1]
-      const columnCharLow = wordLower[column - 1]
-      const columnCharBefore = word[column - 2] || ''
-      const isDiagonalMatch = arrows[row - 1][column - 1] === Arrow.Diagonal
-      const score = GetCompletionItemScore.getScore(
-        rowCharLow,
-        rowChar,
-        columnCharBefore,
-        columnCharLow,
-        columnChar,
-        isDiagonalMatch,
-      )
-      if (row === 1 && score > 5) {
-        score
-        column
-        pattern
-        strongMatch = true
-      }
-      let diagonalScore = score + table[row - 1][column - 1]
-      if (isDiagonalMatch && score !== -1) {
-        diagonalScore += 2
-      }
-      const leftScore = table[row][column - 1]
-      if (leftScore > diagonalScore) {
-        table[row][column] = leftScore
-        arrows[row][column] = Arrow.Left
-      } else {
-        table[row][column] = diagonalScore
-        arrows[row][column] = Arrow.Diagonal
-      }
-    }
-  }
+  const strongMatch = fillTable(
+    pattern,
+    patternLower,
+    word,
+    wordLower,
+    table,
+    arrows,
+    patternLength,
+    wordLength,
+  )
   if (!strongMatch) {
     return EmptyMatches.EmptyMatches
   }
