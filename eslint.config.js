@@ -1,9 +1,9 @@
-import config from '@lvce-editor/eslint-config'
-import actions from '@lvce-editor/eslint-plugin-github-actions'
+import { defineConfig } from 'eslint/config'
+import config, { recommendedActions } from '@lvce-editor/eslint-config'
 
-export default [
+export default defineConfig([
   ...config,
-  ...actions,
+  ...recommendedActions,
   {
     rules: {
       'github-actions/ci-versions': 'off',
@@ -15,4 +15,4 @@ export default [
   {
     ignores: ['src/index.d.ts'],
   },
-]
+])
