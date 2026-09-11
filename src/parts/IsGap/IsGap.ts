@@ -11,8 +11,8 @@ export const isGap = (
     case Character.Dash:
     case Character.Dot:
     case Character.EmptyString:
-    case Character.Space:
     case Character.Slash:
+    case Character.Space:
     case Character.T:
     case Character.Underline:
       return true
