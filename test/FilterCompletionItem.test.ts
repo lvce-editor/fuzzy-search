@@ -436,3 +436,9 @@ test('vscode - fuzzyScore - is - ImportStatement', () => {
 test('filterCompletionItem - filter out weak match', () => {
   expect(FilterCompletionItem.fuzzySearch('cla', 'oncanplay')).toEqual([])
 })
+
+test.each(['listen', 'LISTEN'])('match remote branch segment %s', (pattern) => {
+  expect(
+    FilterCompletionItem.fuzzySearch(pattern, 'origin/remote/listen'),
+  ).toEqual([expect.any(Number), 14, 20])
+})
